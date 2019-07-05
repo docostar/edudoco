@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Question</title>
+  </head>
+  <body>
+          <h2>{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}</h2>
+          <ol>
+                {% for que in questions%}
+                <li>
+                      {{que.question}}
+                      <ol type="A">
+                          <li>{{que.option_a}}</li>
+                          <li>{{que.option_b}}</li>
+                          <li>{{que.option_c}}</li>
+                          <li>{{que.option_d}}</li>
+                      </ol>
+                      Right Answer: {{que.right_option}}
+                </li>
+                {% endfor %}
+          </ol>
+  </body>
+</html>
