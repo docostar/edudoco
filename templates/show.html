@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Question</title>
+    <!--!<script  type="text/javascript" language="javascript"  src="{{ url_for('static', filename='show.js') }}"></script>-->
+    <script type="text/javascript">
+      function right(que,right_option)
+      {
+          var thediv = document.getElementById(que+right_option);
+          thediv.style.color='#66ff33'
+      }
+    </script>
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
   </head>
   <body>
@@ -12,12 +20,12 @@
                 <li>
                       <h3>{{que.question}}</h3>
                       <ol type="A">
-                          <li>{{que.option_a}}</li>
-                          <li>{{que.option_b}}</li>
-                          <li>{{que.option_c}}</li>
-                          <li>{{que.option_d}}</li>
+                          <li id="{{que.question_id}}A">{{que.option_a}}</li>
+                          <li id="{{que.question_id}}B">{{que.option_b}}</li>
+                          <li id="{{que.question_id}}C">{{que.option_c}}</li>
+                          <li id="{{que.question_id}}D">{{que.option_d}}</li>
                       </ol>
-                      Right Answer: {{que.right_option}}
+                      <button onclick="right({{que.question_id}},'{{que.right_option}}')"> Right Answer!</button>
                 </li>
                 {% endfor %}
           </ol>
