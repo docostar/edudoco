@@ -9,6 +9,8 @@
       {
           var thediv = document.getElementById(que+right_option);
           thediv.classList.add("greenbag");  //style.color='#66ff33'
+          var answer=document.getElementById(que);
+          answer.innerHTML="Right answer:"+right_option;
       }
     </script>
     <style>
@@ -18,6 +20,7 @@
       }
       .greenbag
       {
+        color:yellow;
         font-weight: bold;
         background: green;
       }
@@ -40,8 +43,10 @@
                           <li id="{{que.question_id}}B">{{que.option_b}}</li>
                           <li id="{{que.question_id}}C">{{que.option_c}}</li>
                           <li id="{{que.question_id}}D">{{que.option_d}}</li>
+
                       </ol>
-                      <button  type="button" class="btn btn-success" onclick="right({{que.question_id}},'{{que.right_option}}')">Right Answer!</button>
+                      <button  type="button" class="btn btn-success" onclick="right({{que.question_id}},'{{que.right_option}}')">Show Answer</button>
+                      <div id="{{que.question_id}}"></div>
                 </li>
                 {% endfor %}
           </ol>
