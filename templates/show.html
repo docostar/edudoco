@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Question</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
   </head>
   <body>
           <h2>{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}</h2>
           <ol>
                 {% for que in questions%}
                 <li>
-                      {{que.question}}
+                      <h3>{{que.question}}</h3>
                       <ol type="A">
                           <li>{{que.option_a}}</li>
                           <li>{{que.option_b}}</li>
