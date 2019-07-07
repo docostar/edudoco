@@ -5,15 +5,94 @@
     <title>Question</title>
 
      <script type="text/javascript">
+       let rans=0,wans=0;
       function right(que,right_option)
       {
           var thediv = document.getElementById(que+right_option);
           thediv.classList.add("greenbag");  //style.color='#66ff33'
-          var answer=document.getElementById(que);
-          answer.innerHTML="Right answer:"+right_option;
+          var answer=document.getElementById(que+"r");
+          answer.innerHTML="Right answer:"+right_option
       }
+      function checkAns(que,right_option)
+      {
+
+        var sel=document.getElementById(que+"s");
+        str="Your selected Answer:"
+        if(document.getElementById(que+'r1').checked)
+        {
+              str+="A.";
+              if(right_option=='A')
+                rans+=1;
+              else
+              {
+                var thediv = document.getElementById(que+"A");
+                thediv.classList.add("redbag");
+                wans+=1;
+              }
+
+        }
+        else if(document.getElementById(que+'r2').checked)
+        {
+            str+="B.";
+            if(right_option=='B')
+              rans+=1;
+              else
+              {
+                var thediv = document.getElementById(que+"B");
+                thediv.classList.add("redbag");
+                wans+=1;
+              }
+
+        }
+        else if(document.getElementById(que+'r3').checked)
+        {
+            str+="C.";
+            if(right_option=='C')
+              rans+=1;
+              else
+              {
+                var thediv = document.getElementById(que+"C");
+                thediv.classList.add("redbag");
+                wans+=1;
+              }
+        }
+        else if(document.getElementById(que+'r4').checked)
+        {
+            str+="D.";
+            if(right_option=='D')
+              rans+=1;
+              else
+              {
+                var thediv = document.getElementById(que+"D");
+                thediv.classList.add("redbag");
+                wans+=1;
+              }
+        }
+
+        document.getElementById("rans").innerHTML=rans
+        document.getElementById("wans").innerHTML=wans
+        sel.innerHTML=str;
+        right(que,right_option)
+      }
+
     </script>
     <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .header
+      {
+          padding: 10px 16px;
+          background: #555;
+          color: #ff9933
+      }
+
+      h2
+      {
+          align:center
+          color: #ff9933
+      }
       .bluecol
       {
           color: blue;
@@ -24,6 +103,27 @@
         font-weight: bold;
         background: green;
       }
+      .redbag
+      {
+          background:red
+      }
+      .content {
+        padding: 16px;
+      }
+      .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+      .sticky + .content {
+        padding-top: 102px;
+      }
+        .container{width:100%;}
+        .left{float:left;width:400px;}
+        .right{float:right;width:100px;}
+        .center{margin:0 auto;width:100px;}
+        #rans{color:green}
+        #wans{color:red}
 
     </style>
     <!--
@@ -33,23 +133,59 @@
 
   </head>
   <body>
-          <h2>{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}</h2>
+          <div class="header" id="myHeader">
+            <h2 align="center">{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}
+             <div class="container" align="center">
+               <div class="left"> Right:<div id="rans">0</div> </div>
+               <div class="center"> Wrong:<div id="wans">0</div> </div>
+             </div>
+            </h2>
+          </div>
           <ol>
                 {% for que in questions%}
                 <li>
                       <h3 class="bluecol">{{que.question}}</h3>
                       <ol type="A">
-                          <li id="{{que.question_id}}A">{{que.option_a}}</li>
-                          <li id="{{que.question_id}}B">{{que.option_b}}</li>
-                          <li id="{{que.question_id}}C">{{que.option_c}}</li>
-                          <li id="{{que.question_id}}D">{{que.option_d}}</li>
-
+                        <li id="{{que.question_id}}A">{{que.option_a}}</li>
+                        <li id="{{que.question_id}}B">{{que.option_b}}</li>
+                        <li id="{{que.question_id}}C">{{que.option_c}}</li>
+                        <li id="{{que.question_id}}D">{{que.option_d}}</li>
                       </ol>
+                      <form>
+                          <label class="radio-inline">
+                              <input type="radio" name="optradio" id="{{que.question_id}}r1" checked>A
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{que.question_id}}r2" >B
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{que.question_id}}r3" >C
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{que.question_id}}r4" >D
+                          </label>
+                    </form>
+                      <button  type="button" class="btn btn-success" onclick="checkAns({{que.question_id}},'{{que.right_option}}')"">Submit Answer</button>
                       <button  type="button" class="btn btn-success" onclick="right({{que.question_id}},'{{que.right_option}}')">Show Answer</button>
-                      <div id="{{que.question_id}}"></div>
+                      <div id="{{que.question_id}}s"></div>
+                      <div id="{{que.question_id}}r"></div>
                 </li>
                 {% endfor %}
           </ol>
+          <script>
+          window.onscroll = function() {myFunction()};
+
+          var header = document.getElementById("myHeader");
+          var sticky = header.offsetTop;
+
+          function myFunction() {
+            if (window.pageYOffset > sticky) {
+              header.classList.add("sticky");
+            } else {
+              header.classList.remove("sticky");
+            }
+          }
+          </script>
 
   </body>
 </html>
