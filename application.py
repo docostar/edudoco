@@ -27,6 +27,13 @@ def index():
     questions=Question.query.filter_by(paper_id=4).all()
     return render_template("show.html",questions=questions,paper=paper)
 
+@app.route("/answer",methods=['GET'])
+def answer():
+    return render_template("takeanswer.html")
+
+@app.route("/result",methods=['GET'])
+def result():
+    return render_template("result.html")
 
 
 if __name__ == '__main__':
