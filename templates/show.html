@@ -12,6 +12,8 @@
           thediv.classList.add("greenbag");  //style.color='#66ff33'
           var answer=document.getElementById(que+"r");
           answer.innerHTML="Right answer:"+right_option
+          document.getElementById(que+"b").disabled=true;
+
       }
       function checkAns(que,right_option)
       {
@@ -165,7 +167,7 @@
                             <input type="radio" name="optradio" id="{{que.question_id}}r4" >D
                           </label>
                     </form>
-                      <button  type="button" class="btn btn-success" onclick="checkAns({{que.question_id}},'{{que.right_option}}')"">Submit Answer</button>
+                      <button  type="button" class="btn btn-success" id="{{que.question_id}}b" onclick="checkAns({{que.question_id}},'{{que.right_option}}')"">Submit Answer</button>
                       <button  type="button" class="btn btn-success" onclick="right({{que.question_id}},'{{que.right_option}}')">Show Answer</button>
                       <div id="{{que.question_id}}s"></div>
                       <div id="{{que.question_id}}r"></div>
