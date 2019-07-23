@@ -23,9 +23,17 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    paper=Paper.query.filter_by(paper_id=4).first()
-    questions=Question.query.filter_by(paper_id=4).all()
+    return render_template("index.html")
+
+@app.route("/show/<int:paper_id>")
+def show(paper_id):
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
+    questions=Question.query.filter_by(paper_id=paper_id).all()
     return render_template("show.html",questions=questions,paper=paper)
+
+@app.route("/test/<int:paper_id>")
+def test(paper_id):
+    pass
 
 @app.route("/answer",methods=['GET'])
 def answer():
@@ -35,6 +43,10 @@ def answer():
 def result():
     return render_template("result.html")
 
+@app.route("/paper/<int:mode>",methods=['GET'])
+def paper(mode):
+    papers=Paper.query.all()
+    return render_template("paper.html",papers=papers,mode=mode)
 
 if __name__ == '__main__':
     app.debug = True
