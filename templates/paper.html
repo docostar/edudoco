@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Question Type in old paper
+{% endblock %}
+
+{% block body %}
+    <h1>List of Paper</h1>
+    <ul>
+        {% for paper in papers %}
+            <li>
+                {% if mode==1 %}
+                    <a href="{{ url_for('show', paper_id=paper.paper_id) }}">
+                      {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('test', paper_id=paper.paper_id) }}">
+                          {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {{ message }}
+{% endblock %}

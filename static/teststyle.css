@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.header
+{
+    padding: 10px 16px;
+    background: #555;
+    color: #ff9933
+}
+
+h2
+{
+    align:center
+    color: #ff9933
+}
+.bluecol
+{
+    color: blue;
+}
+.greenbag
+{
+  color:yellow;
+  font-weight: bold;
+  background: green;
+}
+.redbag
+{
+    background:red
+}

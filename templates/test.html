@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta charset="utf-8">
+    <title>Test</title>
+
+    <!--<script  type="text/javascript" language="javascript"  src="{{ url_for('static', filename='show1.js') }}"></script>
+    <link rel="stylesheet" src="{{url_for('static',filename='teststyle.css')}}">  -->
+    <link rel="stylesheet" href="static/teststyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+  </head>
+  <body>
+          <div class="header" id="myHeader">
+            <h2 align="center">{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h2>
+          </div>
+          <div id="app">
+
+            {% set counter=[1] %}
+          <ol>
+
+                {% for que in questions %}
+                <li>
+                      <h3 class="bluecol">{{que.question}}</h3>
+                      <ol type="A">
+                        <li id="{{counter}}A">{{que.option_a}}</li>
+                        <li id="{{counter}}B">{{que.option_b}}</li>
+                        <li id="{{counter}}C">{{que.option_c}}</li>
+                        <li id="{{counter}}D">{{que.option_d}}</li>
+                      </ol>
+                      <form>
+                          <label class="radio-inline">
+                              <input type="radio" name="optradio" id="{{counter}}r1">A
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{counter}}r2" >B
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{counter}}r3" >C
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{counter}}r4" >D
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="optradio" id="{{counter}}r5" >E
+                          </label>
+                    </form>
+                    <div id="ans{counter}" value="{{que.right_option}}">
+
+                    </div>
+
+                    {% if counter.append(counter.pop() + 1) %}{% endif %}
+
+                </li>
+                {% endfor %}
+          </ol>
+          <button v-on:click="changeResult" class="btn btn-success" type="button" name="button">Show Result</button>
+          <div v-show="showResult">
+                Kem 6o?
+          </div>
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min"></script>-->
+        <script src="static/test.js?q=123"> </script>
+  </body>
+</html>
