@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Your result</title>
+
+    <script type="text/javascript">
+        function result()
+        {
+            var rightans=0,wrongans=0,totale=0,blank=0;
+            resultdiv=document.getElementById("result");
+            resultdiv.innerHTML="Thanks";
+            var resultvar=[]
+            var printvar=""
+            var i=0;
+            for(i=0;i<loopvar;i++)
+            {
+                  resultvar[i]=document.getElementById("answer"+i).value.toUpperCase();
+            }
+
+            for(i=0;i<loopvar;i++)
+            {
+                if(resultvar[i]!='E')
+                {
+                  if(resultvar[i]== answerA[i])
+                  {
+                      rightq[rightans]=i+1;
+                      rightans+=1;
+                  }
+                  else
+                  {
+                      wrongq[wrongans]=i+1;
+                      wrongans+=1;
+                  }
+                }
+                else
+                {
+                    totale+=1;
+                }
+            }
+            var totalmarks=0.0
+            totalmarks=rightans*1 - wrongans*0.25;
+            printvar+="Total Attemept:"+(rightans+wrongans)+"<br/><br/>";
+            printvar+="Total not attempt:(E):"+totale+"<br/><br/>";
+            printvar+="Total Right Answer:"+rightans+"<br/><br/>";
+            printvar+="Total Wrong Answer:"+wrongans+"<br/><br/>";
+            printvar+="Total Marks:"+totalmarks+"<br/><br/><hr>";
+            printvar+="Right Answer Q. No:<br/>"
+            for(i=0;i<rightans;i++)
+            {
+                printvar+=rightq[i]+","
+            }
+            printvar+="<br/>"
+
+            printvar+="Wrong Answer Q. No:<br/>"
+            for(i=0;i<wrongans;i++)
+            {
+                printvar+=wrongq[i]+","
+            }
+            printvar+="<br/>"
+
+            resultdiv.innerHTML=printvar
+        }
+    </script>
+  </head>
+  <body>
+          Enter Series:: <input type="text" name="series" placeholder="Your series(A,B,C,D)">
+          <button type="button" name="submit" onclick="showinput()">Submit</button>
+          <div id="type">  </div>
+          <div id="result"></div>
+  </body>
+</html>

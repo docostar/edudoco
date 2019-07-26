@@ -31,9 +31,11 @@ def show(paper_id):
     questions=Question.query.filter_by(paper_id=paper_id).all()
     return render_template("show.html",questions=questions,paper=paper)
 
-@app.route("/test/<int:paper_id>")
+@app.route("/test-<int:paper_id>")
 def test(paper_id):
-    pass
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
+    questions=Question.query.filter_by(paper_id=paper_id).all()
+    return render_template("test.html",questions=questions,paper=paper)
 
 @app.route("/answer",methods=['GET'])
 def answer():
