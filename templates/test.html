@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <title>Test</title>
 
-    <!--<script  type="text/javascript" language="javascript"  src="{{ url_for('static', filename='show1.js') }}"></script>
-    <link rel="stylesheet" src="{{url_for('static',filename='teststyle.css')}}">  -->
     <link rel="stylesheet" href="static/teststyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 
@@ -16,7 +14,6 @@
             <h2 align="center">{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h2>
           </div>
           <div id="app">
-
             {% set counter=[1] %}
           <ol>
 
@@ -29,40 +26,61 @@
                         <li id="{{counter}}C">{{que.option_c}}</li>
                         <li id="{{counter}}D">{{que.option_d}}</li>
                       </ol>
-                      <form>
+                      <section>
                           <label class="radio-inline">
-                              <input type="radio" name="optradio" id="{{counter}}r1">A
+                              <input type="radio" name="optradio" v-model="ans{{counter}}" value=["A","{{que.right_option}}"]>A
                           </label>
                           <label class="radio-inline">
-                            <input type="radio" name="optradio" id="{{counter}}r2" >B
+                            <input type="radio" name="optradio" v-model="ans{{counter}}" value="B">B
                           </label>
                           <label class="radio-inline">
-                            <input type="radio" name="optradio" id="{{counter}}r3" >C
+                            <input type="radio" name="optradio" v-model="ans{{counter}}" value="C">C
                           </label>
                           <label class="radio-inline">
-                            <input type="radio" name="optradio" id="{{counter}}r4" >D
+                            <input type="radio" name="optradio" v-model="ans{{counter}}" value="D">D
                           </label>
                           <label class="radio-inline">
-                            <input type="radio" name="optradio" id="{{counter}}r5" >E
+                            <input type="radio" name="optradio" v-model="ans{{counter}}" value="E" >E
                           </label>
-                    </form>
-                    <div id="ans{counter}" value="{{que.right_option}}">
 
-                    </div>
+
+                    </section>
+
+
 
                     {% if counter.append(counter.pop() + 1) %}{% endif %}
 
                 </li>
                 {% endfor %}
           </ol>
+
+
           <button v-on:click="changeResult" class="btn btn-success" type="button" name="button">Show Result</button>
           <div v-show="showResult">
                 Kem 6o?
-          </div>
+                [[ total ]] <br>
+            <!--<div v-for="item in (1,10)"> -->
+                Answer: [[ ans[1][0] ]] <br>
+                Right Ans= [[ ans[1][1] ]] <br>
 
+
+          Hello
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-        <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min"></script>-->
-        <script src="static/test.js?q=123"> </script>
+
+          <!--
+          <section>
+  <h3>radio buttons</h3>
+  <input type="radio" v-model="color" value="0">red
+  <input type="radio" v-model="color" value="1">blue
+  <input type="radio" v-model="color" value="2">yellow
+  <br />
+  <span>value: [[color]]</span>
+</section>
+
+          <input v-model="message" placeholder="Enter a message">
+              <p>Message is: [[ message ]]</p> -->
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+        <script src="static/test.js?v=5"> </script>
   </body>
 </html>

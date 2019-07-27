@@ -8,14 +8,19 @@ var app=new Vue({
             marks:0,
             rightQNo:0,
             WrongQNo:0,
-            showResult:true,
-            demo:1
+            showResult:false,
+            demo:1,
+            ans:[][],
+            rightans:[11],
+            total:0,
+            color:""
       },
       methods:{
         changeResult: function(){
             this.showResult=!this.showResult
-            this.demo+=2
+            this.total+=1
           }
+
       },
       delimiters: ['[[',']]']
 })

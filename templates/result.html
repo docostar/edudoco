@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="static/result.css?v=4">
+    <meta charset="utf-8">
+    <title>Result</title>
+  </head>
+  <body >
+    <div id="upper">
+        <h1 align="center">Hello, Your Result:<br></h1>
+        <h3>
+          Total Question:{{total}} <br>
+          Total attempt:{{right+wrong}}  <br>
+          Total Not Attemept(E): {{e}}<br>
+          Right Answer:{{right}}     <br>
+          Wrong Answer:{{wrong}}     <br>
+        </h3>
+        <h2>Your Marks:{{marks}} </h2> <br>
+    </div>
+        <div id="lower" align="center">
+            <h4>Right Q no:</h4>
+            {% for n in rightQNo %}
+              {{n}},
+              {% endfor %}
+              <br>
+              <h4>Wrong Q no(including not ticked):</h4>
+              {% for n in wrongQNo %}
+                {{n}},
+              {% endfor %}
+
+              <br>
+              <h4>Not Attempt (E) Q no:</h4>
+              {% for n in eQNo %}
+              {{n}},
+              {% endfor %}
+        <div>
+
+
+
+  </body>
+</html>

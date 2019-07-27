@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta charset="utf-8">
+    <title>Test</title>
+
+    <link rel="stylesheet" href="static/teststyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+  </head>
+  <body >
+          <div class="header" id="myHeader">
+            <h2 align="center">{{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h2>
+          </div>
+          <div id="app">
+
+          <form id="answers" action="{{url_for('result',paper_id=paper.paper_id)}}" method="post">
+          <ol>
+
+
+                {% for que in questions %}
+                <li>
+                      <h3 class="bluecol">{{que.question}}</h3>
+                      <ol type="A">
+                        <li id="{{que.question_id}}A">{{que.option_a}}</li>
+                        <li id="{{que.question_id}}B">{{que.option_b}}</li>
+                        <li id="{{que.question_id}}C">{{que.option_c}}</li>
+                        <li id="{{que.question_id}}D">{{que.option_d}}</li>
+                      </ol>
+
+                          <label class="radio-inline">
+                              <input type="radio" name="answer{{que.question_id}}"  value="A">A
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="answer{{que.question_id}}"  value="B">B
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="answer{{que.question_id}}"  value="C">C
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="answer{{que.question_id}}"  value="D">D
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="answer{{que.question_id}}" value="E" >E
+                          </label>
+
+                </li>
+                {% endfor %}
+          </ol>
+
+
+          <button  class="btn btn-success" type="submit" name="button" >Show Result</button>
+          </form>
+        </div>
+
+  </body>
+</html>
