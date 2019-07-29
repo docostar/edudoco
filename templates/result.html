@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="static/result.css?v=4">
+    <link rel="stylesheet" href="static/result.css?v=5">
     <meta charset="utf-8">
     <title>Result</title>
   </head>
   <body >
     <div id="upper">
-        <h1 align="center">Hello, Your Result:<br></h1>
+        <h2 align="center">Hello, Your Result for {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}:<br></h2>
         <h3>
           Total Question:{{total}} <br>
           Total attempt:{{right+wrong}}  <br>

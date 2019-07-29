@@ -41,6 +41,7 @@ def test(paper_id):
 def answer():
     return render_template("takeanswer.html")
 
+
 @app.route("/result-<int:paper_id>",methods=['POST'])
 def result(paper_id):
     rightQNo=[]
@@ -52,6 +53,7 @@ def result(paper_id):
     e=0
     total=0
     marks=0.0
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
     questions=Question.query.filter_by(paper_id=paper_id).all()
     for que in questions:
         ans.append(request.form.get("answer"+str(que.question_id)))
@@ -66,7 +68,7 @@ def result(paper_id):
             wrongQNo.append(total+1)
         total+=1
     marks= right*1 - wrong*0.25
-    return render_template("result.html",rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=right,wrong=wrong,e=e,total=total,marks=marks)
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=right,wrong=wrong,e=e,total=total,marks=marks)
 
 @app.route("/paper/<int:mode>",methods=['GET'])
 def paper(mode):
