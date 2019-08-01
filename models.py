@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 #from datetime import datetime
-from sqlalchemy import Column, Integer,DateTime,String,ForeignKey,Boolean
+from sqlalchemy import Column, Integer,DateTime,String,ForeignKey,Boolean,PrimaryKeyConstraint
 db = SQLAlchemy()
 
 class Paper(db.Model):
@@ -38,6 +38,12 @@ class User(db.Model):
 
 class Answer(db.Model):
     __tablename__ = "answer_key"
+    __table_args__ = (
+        PrimaryKeyConstraint('paper_id', 'user_email','series'),
+    )
     paper_id = Column(Integer,ForeignKey("paper.paper_id"), nullable=False)
     user_email = Column(String,ForeignKey(".user_info.emil"), nullable=False)
     series=Column(String, nullable=False)
+    for i in range(1,151):
+        qstr="q"+str(i)
+        qstr=Column(String)

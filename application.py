@@ -21,8 +21,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
-#engine = create_engine(os.getenv("DATABASE_URL"))
-#db = scoped_session(sessionmaker(bind=engine))
+engine = create_engine(os.getenv("DATABASE_URL"))
+db1 = scoped_session(sessionmaker(bind=engine))
 
 
 @app.route("/")
@@ -54,17 +54,45 @@ def input(paper_id):
 def calculate(paper_id):
     rightQNo=[]
     wrongQNo=[]
+    cancleQNO=[]
     eQNo=[]
     ans=[]
     right=0
     wrong=0
     e=0
     total=0
+    cancle=0
     marks=0.0
     series=request.form.get("series")
-    answer=
-    Flight.query.filter(and_(Flight.origin == "Paris", Flight.duration > 500)).all()
-    return render_template("error.html",message=series)
+    user_email="admin"
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
+    #answer=Answer.query().filter(and_(Answer.paper_id == paper_id,Answer.user_email=="admin",Answer.series==series)).first()
+    answer=db1.execute("select * from answer_key WHERE paper_id=:paper_id AND  user_email=:user_email AND series=:series",
+    {"paper_id":paper_id,"user_email":user_email,"series":series}).fetchone()
+    for qno in range(1,151):
+        qstr='q'+str(qno)
+        rightans=answer[qno+2]  #first answer in 4th column
+        ans.append(request.form.get(qstr).upper())
+
+        if rightans=='X':
+            cancleQNO.append(total+1)
+            cancle+=1
+
+        elif ans[total]==rightans:
+            right+=1
+            rightQNo.append(total+1)
+
+        elif ans[total]=='E':
+            e+=1
+            eQNo.append(total+1)
+
+        else:
+            wrong+=1
+            wrongQNo.append(total+1)
+        total+=1
+
+    marks= right*1 - wrong*0.25
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,cancleQNO=cancleQNO,right=len(rightQNo),wrong=len(wrongQNo),e=e,cancle=cancle,total=total,marks=marks)
 
 
 
@@ -115,7 +143,7 @@ def result(paper_id):
                 wrongQNo.append(total+1)
             total+=1
         marks= right*1 - wrong*0.3
-    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks)
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks,cancle=0)
 
 @app.route("/paper/<int:mode>",methods=['GET'])
 def paper(mode):

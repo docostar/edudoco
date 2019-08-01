@@ -14,6 +14,9 @@
           Total Not Attemept(E): {{e}}<br>
           Right Answer:{{right}}     <br>
           Wrong Answer:{{wrong}}     <br>
+          {% if cancle>0 %}
+            Total Cancel: {{cancle}} <br>
+          {% endif %}
         </h3>
         <h2>Your Marks:{{marks}} </h2> <br>
     </div>
@@ -33,6 +36,13 @@
               {% for n in eQNo %}
               {{n}},
               {% endfor %}
+            {% if cancle>0 %}
+              <br>
+              <h4>Cancled  Q no:</h4>
+              {% for n in cancleQNO %}
+              {{n}},
+              {% endfor %}
+            {% endif %}
         <div>
 
 
