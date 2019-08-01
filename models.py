@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 #from datetime import datetime
-from sqlalchemy import Column, Integer,DateTime,String,ForeignKey
+from sqlalchemy import Column, Integer,DateTime,String,ForeignKey,Boolean
 db = SQLAlchemy()
 
 class Paper(db.Model):
@@ -11,6 +11,8 @@ class Paper(db.Model):
     series = db.Column(db.String)
     exambody = db.Column(db.Integer, nullable=False)
     examdate=db.Column(db.DateTime, nullable=False) #default=datetime.datetime.utcnow)
+    Key_Available=db.Column(db.Boolean, nullable=False)
+    Test_Available=db.Column(db.Boolean, nullable=False)
 
 class Question(db.Model):
     __tablename__ = "question"

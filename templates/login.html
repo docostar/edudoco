@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login To Edudoco</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/login.css?v=1">
+  </head>
+  <body>
+    <h1>Welcome to EduDoco</h1>
+
+    <form action="{{ url_for('index')}}" method="post">
+
+        <div class="form-group">
+            <input class="form-control" type="email" name="userid" placeholder="email" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" type="password"" placeholder="Password" required>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Login</button>
+        </div>
+
+    </form>
+    <form action="{{ url_for('registration') }}" message="",method="post">
+      <div class="form-group">
+          <button class="btn btn-primary">New Registration</button>
+      </div>
+    </form>
+
+    {{ message }}
+
+
+
+  </body>
+</html>

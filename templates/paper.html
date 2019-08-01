@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <h1>List of Paper</h1>
+    {% if mode==1 %}
+        <h1>List of Paper for Practise</h1>
+    {% elif mode==2 %}
+        <h1>List of Paper for Test</h1>
+    {% else %}
+      <h1>List of Paper for Check Marks</h1>
+    {% endif %}
     <ul>
         {% for paper in papers %}
             <li>
@@ -13,9 +19,13 @@
                     <a href="{{ url_for('show', paper_id=paper.paper_id) }}">
                       {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
                     </a>
-                {% else %}
+                {% elif mode==2 %}
                     <a href="{{ url_for('test', paper_id=paper.paper_id) }}">
                           {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('test', paper_id=paper.paper_id) }}">
+                      Key:  {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
                     </a>
                 {% endif %}
             </li>

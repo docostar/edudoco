@@ -12,6 +12,10 @@ app = Flask(__name__)
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
@@ -93,8 +97,12 @@ def result(paper_id):
 
 @app.route("/paper/<int:mode>",methods=['GET'])
 def paper(mode):
-    papers=Paper.query.all()
-    return render_template("paper.html",papers=papers,mode=mode)
+    if mode != 3:
+        papers=Paper.query.filter_by(Test_Available=True).order_by(Paper.examdate.desc()).all()
+        return render_template("paper.html",papers=papers,mode=mode)
+    else:
+        papers=Paper.query.filter_by(Key_Available=True).order_by(Paper.examdate.desc()).all()
+        return render_template("paper.html",papers=papers,mode=mode)
 
 if __name__ == '__main__':
     app.debug = True
