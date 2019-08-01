@@ -55,20 +55,41 @@ def result(paper_id):
     marks=0.0
     paper=Paper.query.filter_by(paper_id=paper_id).first()
     questions=Question.query.filter_by(paper_id=paper_id).all()
-    for que in questions:
-        ans.append(request.form.get("answer"+str(que.question_id)))
-        if ans[total]==que.right_option:
-            right+=1
-            rightQNo.append(total+1)
-        elif ans[total]=='E':
-            e+=1
-            eQNo.append(total+1)
-        else:
-            wrong+=1
-            wrongQNo.append(total+1)
-        total+=1
-    marks= right*1 - wrong*0.25
-    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=right,wrong=wrong,e=e,total=total,marks=marks)
+    if paper_id!=6:
+        for que in questions:
+            ans.append(request.form.get("answer"+str(que.question_id)))
+            if ans[total]==que.right_option:
+                right+=1
+                rightQNo.append(total+1)
+            elif ans[total]=='E':
+                e+=1
+                eQNo.append(total+1)
+            else:
+                wrong+=1
+                wrongQNo.append(total+1)
+            total+=1
+        marks= right*1 - wrong*0.25
+    else:
+        for que in questions:
+            ans.append(request.form.get("answer"+str(que.question_id)))
+            if ans[total]==que.right_option:
+                if total<100:
+                    right+=1
+                else:
+                    right+=0.5
+                rightQNo.append(total+1)
+            elif ans[total]=='E':
+                e+=1
+                eQNo.append(total+1)
+            else:
+                if total<100:
+                    wrong+=1
+                else:
+                    wrong+=0.5
+                wrongQNo.append(total+1)
+            total+=1
+        marks= right*1 - wrong*0.3
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks)
 
 @app.route("/paper/<int:mode>",methods=['GET'])
 def paper(mode):
