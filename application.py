@@ -45,6 +45,28 @@ def test(paper_id):
 def answer():
     return render_template("takeanswer.html")
 
+@app.route("/input-<int:paper_id>",methods=['GET','POST'])
+def input(paper_id):
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
+    return render_template("inputanswer.html",paper=paper)
+
+@app.route("/calculate-<int:paper_id>",methods=['POST'])
+def calculate(paper_id):
+    rightQNo=[]
+    wrongQNo=[]
+    eQNo=[]
+    ans=[]
+    right=0
+    wrong=0
+    e=0
+    total=0
+    marks=0.0
+    series=request.form.get("series")
+    answer=
+    Flight.query.filter(and_(Flight.origin == "Paris", Flight.duration > 500)).all()
+    return render_template("error.html",message=series)
+
+
 
 @app.route("/result-<int:paper_id>",methods=['POST'])
 def result(paper_id):

@@ -24,8 +24,8 @@
                           {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
                     </a>
                 {% else %}
-                    <a href="{{ url_for('test', paper_id=paper.paper_id) }}">
-                      Key:  {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                    <a href="{{ url_for('input', paper_id=paper.paper_id) }}">
+                      {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
                     </a>
                 {% endif %}
             </li>

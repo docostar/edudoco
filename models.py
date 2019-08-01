@@ -26,3 +26,18 @@ class Question(db.Model):
     right_option=Column(String,nullable=False)
     difflevel=Column(db.SMALLINT)
     explanation = Column(String)
+
+class User(db.Model):
+    __tablename__ = "user_info"
+    email = Column(String, primary_key=True)
+    fName = Column(String, nullable=False)
+    lName = Column(String, nullable=False)
+    mo = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+
+
+class Answer(db.Model):
+    __tablename__ = "answer_key"
+    paper_id = Column(Integer,ForeignKey("paper.paper_id"), nullable=False)
+    user_email = Column(String,ForeignKey(".user_info.emil"), nullable=False)
+    series=Column(String, nullable=False)

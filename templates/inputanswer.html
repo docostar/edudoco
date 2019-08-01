@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Enter your Answer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/result.css?v=5">
+  </head>
+  <body>
+    <h2>Enter Answer For {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h2>
+    <form action="{{ url_for('calculate',paper_id=paper.paper_id)}}" method="post">
+
+        <div class="form-group">
+            <input class="form-control" type="email" name="userid" placeholder="E-mail id" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="fName"  placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="lName"  placeholder="Last Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mo">Whatsapp Number for Update</label>
+            <input class="form-control" name="mo"  placeholder="Mobile Number(optional)">
+        </div>
+        <div class="form-group">
+              <label for="sel1">Select your Series:</label>
+                <select class="form-control" name="series" id="sel1">
+                    <option selected="selected">A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                  </select>
+        </div>
+        <div id="app">
+          <button v-on:click="showInput" class="btn btn-success" type="button" name="button">Let's Started</button>
+          <div v-show="showResult">
+                  {% for n in range(150) %}
+                  <label for="q{{n+1}}">Enter answer for Q.{{n+1}}</label>
+                  <input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}"><br/>
+                  {% endfor %}
+                  <div class="form-group">
+                      <button class="btn btn-primary">Submit</button>
+                  </div>
+          </div>
+        </div>
+
+
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="static/input.js?v=1"> </script>
+  </body>
+</html>
