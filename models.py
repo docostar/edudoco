@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 #from datetime import datetime
-from sqlalchemy import Column, Integer,DateTime,String,ForeignKey,Boolean,PrimaryKeyConstraint
+from sqlalchemy import Column, Integer,DateTime,String,ForeignKey,Boolean,PrimaryKeyConstraint,Numeric,and_,func
 db = SQLAlchemy()
 
 class Paper(db.Model):
@@ -47,3 +47,16 @@ class Answer(db.Model):
     for i in range(1,151):
         qstr="q"+str(i)
         qstr=Column(String)
+
+class Marks(db.Model):
+    __tablename__ = "marks_details"
+    __table_args__ = (
+        PrimaryKeyConstraint('paper_id', 'email'),
+    )
+    paper_id = Column(Integer,ForeignKey("paper.paper_id"), nullable=False)
+    email=Column(String, nullable=False)
+    provisonal_marks=Column(Numeric(precision=2), nullable=False)
+    Final_marks=Column(Numeric(precision=2), nullable=False)
+    firstName=Column(String, nullable=False)
+    lastName=Column(String, nullable=False)
+    mobile=Column(String)

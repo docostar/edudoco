@@ -64,11 +64,12 @@ def calculate(paper_id):
     cancle=0
     marks=0.0
     series=request.form.get("series")
-    user_email="admin"
+    answer_email="admin"
     paper=Paper.query.filter_by(paper_id=paper_id).first()
     #answer=Answer.query().filter(and_(Answer.paper_id == paper_id,Answer.user_email=="admin",Answer.series==series)).first()
-    answer=db1.execute("select * from answer_key WHERE paper_id=:paper_id AND  user_email=:user_email AND series=:series",
-    {"paper_id":paper_id,"user_email":user_email,"series":series}).fetchone()
+
+    answer=db1.execute("select * from answer_key WHERE paper_id=:paper_id AND  user_email=:answer_email AND series=:series",
+    {"paper_id":paper_id,"answer_email":answer_email,"series":series}).fetchone()
     for qno in range(1,151):
         qstr='q'+str(qno)
         rightans=answer[qno+2]  #first answer in 4th column
@@ -92,7 +93,25 @@ def calculate(paper_id):
         total+=1
 
     marks= right*1 - wrong*0.25
-    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,cancleQNO=cancleQNO,right=len(rightQNo),wrong=len(wrongQNo),e=e,cancle=cancle,total=total,marks=marks)
+    user_email=request.form.get("useremail")
+    fName=request.form.get("fName")
+    lName=request.form.get("lName")
+    mo=request.form.get("mo")
+    newMark=Marks.query.filter(and_(Marks.email==user_email,Marks.paper_id==paper_id)).first()
+    if(newMark):
+        newMark.provisonal_marks=marks
+        db.session.commit()
+    else:
+        addMark=Marks(paper_id=paper_id,email=user_email,firstName=fName,lastName=lName,provisonal_marks=marks,mobile=mo)
+        db.session.add(addMark)
+        db.session.commit()
+    noOfUser=db1.execute("select COUNT(provisonal_marks) FROM marks_details").fetchone().count
+    maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details").fetchone().max
+    minMark=db1.execute("select min(provisonal_marks) FROM marks_details").fetchone().min
+    avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details").fetchone().avg
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,
+    cancleQNO=cancleQNO,right=len(rightQNo),wrong=len(wrongQNo),e=e,cancle=cancle,total=total,marks=marks,
+    noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=1,series=series,fName=fName,lName=lName)
 
 
 

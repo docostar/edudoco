@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="static/result.css?v=5">
+    <link rel="stylesheet" href="static/result.css?v=11">
     <meta charset="utf-8">
     <title>Result</title>
   </head>
   <body >
     <div id="upper">
-        <h2 align="center">Hello, Your Result for {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}:<br></h2>
+        <h2 >Hello,
+          {% if mode==1 %}
+            <div id="name">  {{fName}} {{lName}} </div>
+          {% endif %}
+          Your Result for {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}}-
+          {% if mode==1 %}
+            Series:{{series}}
+          {% endif %}
+          <br>
+        </h2>
         <h3>
           Total Question:{{total}} <br>
           Total attempt:{{right+wrong}}  <br>
@@ -18,7 +27,14 @@
             Total Cancel: {{cancle}} <br>
           {% endif %}
         </h3>
-        <h2>Your Marks:{{marks}} </h2> <br>
+        <h1>Your Marks:{{marks}} </h1> <br>
+        {% if mode==1 %}
+          <h2>Analysis of Marks Entered in Our Plateform</h2>
+            <h3>No of Candidate:{{noOfUser}}</h3>
+            <h3>HighestMark:{{maxMark}}</h3>
+            <h3>LowsetMark:{{minMark}}</h3>
+            <h3>Avg Marks:{{avgMark}}</h3>
+        {% endif %}
     </div>
         <div id="lower" align="center">
             <h4>Right Q no:</h4>

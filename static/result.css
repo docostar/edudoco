@@ -3,13 +3,22 @@ h2,h3,h4
     text-align:center;
     color: green
 }
+h1
+{
+  text-align:center;
+  color: red
+}
+#name
+{
+  color:#1a53ff
+}
 #upper{
-    height: 300px;
+    height: auto;
     background: linear-gradient(to bottom left, #9999ff 0%, #ffff00 100%);
 }
 
 #lower
 {
-    height: 400px;
+    height: auto;
     background: linear-gradient(to right, #00ff99 0%, #cc99ff 100%)
 }
