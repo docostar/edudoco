@@ -13,6 +13,7 @@ class Paper(db.Model):
     examdate=db.Column(db.DateTime, nullable=False) #default=datetime.datetime.utcnow)
     Key_Available=db.Column(db.Boolean, nullable=False)
     Test_Available=db.Column(db.Boolean, nullable=False)
+    Key_Type=db.Column(db.Boolean, nullable=False)
 
 class Question(db.Model):
     __tablename__ = "question"

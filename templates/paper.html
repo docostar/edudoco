@@ -10,7 +10,7 @@
     {% elif mode==2 %}
         <h1>List of Paper for Test</h1>
     {% else %}
-      <h1>List of Paper for Check Marks</h1>
+      <h2 style="color:green;background-color:yellow;">List of Paper for Check Marks With Final Answer Key</h2>
     {% endif %}
     <ul>
         {% for paper in papers %}
@@ -25,12 +25,23 @@
                     </a>
                 {% else %}
                     <a href="{{ url_for('input', paper_id=paper.paper_id) }}">
-                      {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                      <h5>{{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}</h5>
                     </a>
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
-
+    {% if mode==3 %}
+    <h2 style="color:green;background-color:yellow;">List of Paper for Check Marks With Provisional Answer Key</h2>
+      <ul>
+        {% for paper in papers2 %}
+            <li>
+                <a href="{{ url_for('input', paper_id=paper.paper_id) }}">
+                    <h5>{{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}</h5>
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {{ message }}
 {% endblock %}

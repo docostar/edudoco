@@ -111,10 +111,10 @@ def calculate(paper_id):
         addMark=Marks(paper_id=paper_id,email=user_email,firstName=fName,lastName=lName,provisonal_marks=marks,mobile=mo)
         db.session.add(addMark)
         db.session.commit()
-    noOfUser=db1.execute("select COUNT(provisonal_marks) FROM marks_details").fetchone().count
-    maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details").fetchone().max
-    minMark=db1.execute("select min(provisonal_marks) FROM marks_details").fetchone().min
-    avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details").fetchone().avg
+    noOfUser=db1.execute("select COUNT(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().count
+    maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().max
+    minMark=db1.execute("select min(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().min
+    avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().avg
     return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,
     cancleQNO=cancleQNO,right=len(rightQNo),wrong=len(wrongQNo),e=e,cancle=cancle,total=total,marks=marks,
     noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=1,series=series,fName=fName,lName=lName)
@@ -176,8 +176,9 @@ def paper(mode):
         papers=Paper.query.filter_by(Test_Available=True).order_by(Paper.examdate.desc()).all()
         return render_template("paper.html",papers=papers,mode=mode)
     else:
-        papers=Paper.query.filter_by(Key_Available=True).order_by(Paper.examdate.desc()).all()
-        return render_template("paper.html",papers=papers,mode=mode)
+        paperswithFKey=Paper.query.filter(and_(Paper.Key_Available==True,Paper.Key_Type==True)).order_by(Paper.examdate.desc()).all()
+        paperswithPKey=Paper.query.filter(and_(Paper.Key_Available==True,Paper.Key_Type==False)).order_by(Paper.examdate.desc()).all()
+        return render_template("paper.html",papers=paperswithFKey,mode=mode,papers2=paperswithPKey)
 
 if __name__ == '__main__':
     app.debug = True
