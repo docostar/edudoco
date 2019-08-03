@@ -72,14 +72,20 @@ def calculate(paper_id):
     {"paper_id":paper_id,"answer_email":answer_email,"series":series}).fetchone()
     for qno in range(1,151):
         qstr='q'+str(qno)
-        rightans=answer[qno+2]  #first answer in 4th column
+        rightans1='T'
+        if len(answer[qno+2])==1:
+            rightans=answer[qno+2]  #first answer in 4th column
+        else:
+            rightans=answer[qno+2][0]
+            rightans1=answer[qno+2][1]
+
         ans.append(request.form.get(qstr).upper())
 
         if rightans=='X':
             cancleQNO.append(total+1)
             cancle+=1
 
-        elif ans[total]==rightans:
+        elif ans[total]==rightans or ans[total]==rightans1:
             right+=1
             rightQNo.append(total+1)
 
