@@ -181,6 +181,6 @@ def paper(mode):
         return render_template("paper.html",papers=paperswithFKey,mode=mode,papers2=paperswithPKey)
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     app.secret_key = "9+3as4jj+nnqlu16xu49xag0i4-x(=6e$ljzsdcctkej1nil94"
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
