@@ -35,7 +35,7 @@
         </div>
         {% for n in range(150) %}
         <label for="q{{n+1}}">Enter answer for Q.{{n+1}}</label>
-        <input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}"><br/>
+        <input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}" required><br/>
         {% endfor %}
         <div class="form-group">
             <button class="btn btn-primary">Submit</button>
