@@ -98,7 +98,7 @@ def calculate(paper_id):
             wrongQNo.append(total+1)
         total+=1
 
-    marks= right*1 - wrong*0.25
+    marks= cancle*1 + right*1 - wrong*0.25
     user_email=request.form.get("useremail")
     fName=request.form.get("fName")
     lName=request.form.get("lName")
