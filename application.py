@@ -180,8 +180,8 @@ def result(paper_id):
         marks= right*1 - wrong*0.3
     return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks,cancle=0)
 
-@app.route("/paper/<int:mode>",methods=['GET'])
-def paper(mode):
+@app.route("/module-<int:mode>",methods=['GET'])
+def module(mode):
     if mode == 1 or mode == 2 :
         papers=Paper.query.filter_by(Test_Available=True).order_by(Paper.examdate.desc()).all()
         return render_template("paper.html",papers=papers,mode=mode)
