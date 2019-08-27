@@ -9,6 +9,8 @@
         <h1>List of Paper for Practise</h1>
     {% elif mode==2 %}
         <h1>List of Paper for Test</h1>
+    {% elif mode==4 %}
+        <h2 style="color:green;background-color:yellow;">List of Paper for Check your Rank With Final Answer Key</h2>
     {% else %}
       <h2 style="color:green;background-color:yellow;">List of Paper for Check Marks With Final Answer Key</h2>
     {% endif %}
@@ -23,6 +25,10 @@
                     <a href="{{ url_for('test', paper_id=paper.paper_id) }}">
                           {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
                     </a>
+                {% elif mode==4 %}
+                        <a href="{{ url_for('rank', paper_id=paper.paper_id) }}">
+                              {{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}
+                        </a>
                 {% else %}
                     <a href="{{ url_for('input', paper_id=paper.paper_id) }}">
                       <h5>{{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}</h5>
@@ -37,6 +43,18 @@
         {% for paper in papers2 %}
             <li>
                 <a href="{{ url_for('input', paper_id=paper.paper_id) }}">
+                    <h5>{{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}</h5>
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if mode==4 %}
+    <h2 style="color:green;background-color:yellow;">List of Paper for Check your Rank With Provisional Answer Key</h2>
+      <ul>
+        {% for paper in papers2 %}
+            <li>
+                <a href="{{ url_for('rank', paper_id=paper.paper_id) }}">
                     <h5>{{ paper.examname }}-{{ paper.subject }},           {{paper.exambody}}::{{paper.examdate}}</h5>
                 </a>
             </li>

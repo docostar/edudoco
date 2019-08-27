@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Your Rankr</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/result.css?v=17">
+  </head>
+  <body>
+        <h3>Rank For {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h3>
+        <div id="upper">
+          <h2>Analysis of Marks Entered in Our Plateform for this paper</h2>
+          <h3>No of Candidate:{{noOfUser}}</h3>
+          <h3>HighestMark:{{maxMark}}</h3>
+          <h3>LowsetMark:{{minMark}}</h3>
+          <h3>Avg Marks:{{avgMark}}</h3>
+        </div>
+
+        <div id="lower">
+            <h4>Rank<h4><h5>&nbsp;&nbsp;&nbsp;&nbsp;Marks&nbsp;&nbsp;&nbsp;&nbsp; Name  </h5>
+
+              {% for mark in marks %}
+                  <h4>{{ loop.index }}<h4><h5>&nbsp;&nbsp;&nbsp;&nbsp;{{ mark.provisonal_marks }}&nbsp;&nbsp;&nbsp;&nbsp;{{ mark.firstName }}  </h5>
+
+              {% endfor %}
+        </div>
+
+  </body>

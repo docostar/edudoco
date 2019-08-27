@@ -3,6 +3,12 @@ h2,h3,h4
     text-align:center;
     color: green
 }
+
+h5
+{
+    text-align: center;
+    color: yellow
+}
 h1
 {
   text-align:center;

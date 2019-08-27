@@ -50,6 +50,16 @@ def input(paper_id):
     paper=Paper.query.filter_by(paper_id=paper_id).first()
     return render_template("inputanswer.html",paper=paper)
 
+@app.route("/rank-<int:paper_id>",methods=['GET','POST'])
+def rank(paper_id):
+    marks=Marks.query.filter_by(paper_id=paper_id).order_by(Marks.provisonal_marks.desc()).all()
+    paper=Paper.query.filter_by(paper_id=paper_id).first()
+    noOfUser=db1.execute("select COUNT(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().count
+    maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().max
+    minMark=db1.execute("select min(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().min
+    avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().avg
+    return render_template("rank.html",marks=marks,paper=paper,noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark)
+
 @app.route("/calculate-<int:paper_id>",methods=['POST'])
 def calculate(paper_id):
     rightQNo=[]
@@ -172,7 +182,7 @@ def result(paper_id):
 
 @app.route("/paper/<int:mode>",methods=['GET'])
 def paper(mode):
-    if mode != 3:
+    if mode == 1 or mode == 2 :
         papers=Paper.query.filter_by(Test_Available=True).order_by(Paper.examdate.desc()).all()
         return render_template("paper.html",papers=papers,mode=mode)
     else:
