@@ -33,9 +33,18 @@
                     <option>D</option>
                   </select>
         </div>
+        <h4>If you leave Question blank than choose option X </h4>
         {% for n in range(150) %}
         <label for="q{{n+1}}">Enter answer for Q.{{n+1}}</label>
-        <input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}" required><br/>
+        <!--<input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}" required><br/> -->
+        <select class="form-control" name="q{{n+1}}">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+            <option selected="selected">E</option>
+            <option>X</option>
+          </select>
         {% endfor %}
         <div class="form-group">
             <button class="btn btn-primary">Submit</button>
