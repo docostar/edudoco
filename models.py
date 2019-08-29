@@ -61,3 +61,12 @@ class Marks(db.Model):
     firstName=Column(String, nullable=False)
     lastName=Column(String, nullable=False)
     mobile=Column(String)
+
+class TestMarks(db.Model):
+    __tablename__ = "test_marks"
+    __table_args__ = (
+        PrimaryKeyConstraint('id'),
+    )
+    id = db.Column(db.Integer, primary_key=True)
+    paper_id = Column(Integer,ForeignKey("paper.paper_id"), nullable=False)
+    marks=Column(Numeric(precision=2), nullable=False)

@@ -9,6 +9,17 @@ h5
     text-align: center;
     color: yellow
 }
+table, th, td {
+  border: 2px solid blue;
+  text-align: center;
+}
+th{
+      color:red;
+}
+
+td{
+    color: green
+}
 h1
 {
   text-align:center;

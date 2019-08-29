@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="static/result.css?v=11">
+    <link rel="stylesheet" href="static/result.css?v=17">
     <meta charset="utf-8">
     <title>Result</title>
     <!-- Google Tag Manager -->
@@ -17,6 +17,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LMNBWG"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+{% if mode!=2 %}
     <div id="upper">
         <h2 >Hello,
           {% if mode==1 %}
@@ -39,13 +40,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           {% endif %}
         </h3>
         <h1>Your Marks:{{marks}} </h1> <br>
-        {% if mode==1 %}
-          <h2>Analysis of Marks Entered in Our Plateform for this paper</h2>
-            <h3>No of Candidate:{{noOfUser}}</h3>
-            <h3>HighestMark:{{maxMark}}</h3>
-            <h3>LowsetMark:{{minMark}}</h3>
-            <h3>Avg Marks:{{avgMark}}</h3>
-        {% endif %}
+
+
     </div>
         <div id="lower" align="center">
             <h4>Right Q no:</h4>
@@ -70,7 +66,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               {{n}},
               {% endfor %}
             {% endif %}
-        <div>
+          </div>
+{% else %}
+        <div id="upper">
+            <h3>Rank For {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h3>
+        </div>
+{% endif %}
+
+          <div id="upper">
+            {% if mode!=3 %}
+              <h2>Analysis of Marks Entered in Our Plateform for this paper</h2>
+            {% else %}
+              <h2>Analysis of Test Given in Our Plateform for this paper</h2>
+            {% endif %}
+                <h3>No of Candidate:{{noOfUser}}</h3>
+                <h3>HighestMark:{{maxMark}}</h3>
+                <h3>LowsetMark:{{minMark}}</h3>
+                <h3>Avg Marks:{{avgMark}}</h3>
+
+              <table align="center">
+                  <tr>
+                        <th>Rank</th>
+                       <th>Marks</th>
+                  </tr>
+
+                      {% for rank in ranks %}
+                      <tr>
+                              <td> {{ loop.index }} </td>
+
+                          {% if mode!=3 %}
+                              <td> {{ rank.provisonal_marks }} </td>
+                          {% else %}
+                              <td> {{ rank.marks }} </td>
+                          {% endif %}
+                      </tr>
+                      {% endfor %}
+
+              </table>
+          </div>
 
 
 

@@ -58,8 +58,9 @@ def rank(paper_id):
     maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().max
     minMark=db1.execute("select min(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().min
     avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().avg
-    return render_template("rank.html",marks=marks,paper=paper,noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark)
-
+    #return render_template("rank.html",marks=marks,paper=paper,noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark)
+    #we use mode=2 for only Rank
+    return render_template("result.html",ranks=marks,paper=paper,noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=2)
 @app.route("/calculate-<int:paper_id>",methods=['POST'])
 def calculate(paper_id):
     rightQNo=[]
@@ -121,13 +122,14 @@ def calculate(paper_id):
         addMark=Marks(paper_id=paper_id,email=user_email,firstName=fName,lastName=lName,provisonal_marks=marks,mobile=mo)
         db.session.add(addMark)
         db.session.commit()
+    ranks=Marks.query.filter_by(paper_id=paper_id).order_by(Marks.provisonal_marks.desc()).all()
     noOfUser=db1.execute("select COUNT(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().count
     maxMark=db1.execute("select MAX(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().max
     minMark=db1.execute("select min(provisonal_marks) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().min
     avgMark=db1.execute("select CAST(AVG(provisonal_marks) AS DECIMAL(10,2)) FROM marks_details WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().avg
     return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,
     cancleQNO=cancleQNO,right=len(rightQNo),wrong=len(wrongQNo),e=e,cancle=cancle,total=total,marks=marks,
-    noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=1,series=series,fName=fName,lName=lName)
+    noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=1,series=series,fName=fName,lName=lName,ranks=ranks)
 
 
 
@@ -178,8 +180,18 @@ def result(paper_id):
                 wrongQNo.append(total+1)
             total+=1
         marks= right*1 - wrong*0.3
-    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks,cancle=0)
-
+    addMark=TestMarks(paper_id=paper_id,marks=marks)
+    db.session.add(addMark)
+    db.session.commit()
+    ranks=TestMarks.query.filter_by(paper_id=paper_id).order_by(TestMarks.marks.desc()).all()
+    noOfUser=db1.execute("select COUNT(marks) FROM test_marks WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().count
+    maxMark=db1.execute("select MAX(marks) FROM test_marks WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().max
+    minMark=db1.execute("select min(marks) FROM test_marks WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().min
+    avgMark=db1.execute("select CAST(AVG(marks) AS DECIMAL(10,2)) FROM test_marks WHERE paper_id=:paper_id",{"paper_id":paper_id}).fetchone().avg
+    #return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks,cancle=0)
+    #we use mode=3 for test
+    return render_template("result.html",paper=paper,rightQNo=rightQNo,wrongQNo=wrongQNo,eQNo=eQNo,right=len(rightQNo),wrong=len(wrongQNo),e=e,total=total,marks=marks,cancle=0,
+                            noOfUser=noOfUser,maxMark=maxMark,minMark=minMark,avgMark=avgMark,mode=3,ranks=ranks)
 @app.route("/module-<int:mode>",methods=['GET'])
 def module(mode):
     if mode == 1 or mode == 2 :
