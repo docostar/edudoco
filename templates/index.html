@@ -13,14 +13,16 @@
             <button class="btn btn-primary">Check Your Mark According AnswerKey</button>
         </div>
       </form>
-      <form action="{{url_for('module',mode=1)}}" ,method="get">
-        <div class="form-group">
-            <button class="btn btn-primary">Practice Mode</button>
-        </div>
-      </form>
+
       <form action="{{ url_for('module',mode=2) }}",method="get">
         <div class="form-group">
             <button class="btn btn-primary">Test Mode</button>
+        </div>
+      </form>
+
+      <form action="{{url_for('module',mode=1)}}" ,method="get">
+        <div class="form-group">
+            <button class="btn btn-primary">Practice Mode</button>
         </div>
       </form>
 
