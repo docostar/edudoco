@@ -5,6 +5,9 @@
     <title>Enter your Answer</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" href="static/result.css?v=5">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body>
     <h2>Enter Answer For {{ paper.examname }}-{{ paper.subject }},  {{paper.exambody}}::{{paper.examdate}} </h2>
@@ -33,10 +36,17 @@
                     <option>D</option>
                   </select>
         </div>
-        <h4>If you leave Question blank than choose option X </h4>
+       
+
+        <table align="center" >
         {% for n in range(150) %}
-        <label for="q{{n+1}}">Enter answer for Q.{{n+1}}</label>
+
+            <tr>
+                <td>
+        <label for="q{{n+1}}">Q.{{n+1}}</label>
+            </td>
         <!--<input type="text" name="q{{n+1}}" placeholder="Q.{{n+1}}" required><br/> -->
+        <!--
         <select class="form-control" name="q{{n+1}}">
             <option>A</option>
             <option>B</option>
@@ -45,9 +55,34 @@
             <option selected="selected">E</option>
             <option>X</option>
           </select>
+          -->
+                <td>
+        <label class="radio-inline">
+                <input  type="radio" name="q{{n+1}}" value="A" required>A
+        </label>
+        <label class="radio-inline">
+                <input type="radio" name="q{{n+1}}" value="B" >B
+        </label>
+        <label class="radio-inline">
+                <input type="radio" name="q{{n+1}}" value="C" >C
+        </label>
+        <label class="radio-inline">
+                <input type="radio" name="q{{n+1}}" value="D" >D
+        </label>
+        <label class="radio-inline">
+                <input type="radio" name="q{{n+1}}" value="E" >E
+        </label>
+         <label class="radio-inline">
+                <input type="radio" name="q{{n+1}}" value="" >Not ticked
+        </label>
+                </td>
+        </tr>
+
         {% endfor %}
+        </table>
+        <br/>
         <div class="form-group">
-            <button class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary" style="position:absolute;left:50%">Submit</button>
         </div>
 
     </form>
