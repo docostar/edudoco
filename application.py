@@ -97,8 +97,8 @@ def calculate(paper_id):
             rightans=answer[qno+2][0]
             rightans1=answer[qno+2][1]
 
-        ans.append(request.form.get(qstr).upper())
-
+        #ans.append(request.form.get(qstr).upper())
+        ans.append(request.form.get(qstr))
         if rightans=='X':
             cancleQNO.append(total+1)
             cancle+=1
