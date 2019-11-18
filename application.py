@@ -47,8 +47,12 @@ def answer():
 
 @app.route("/input-<int:paper_id>",methods=['GET','POST'])
 def input(paper_id):
+    no_of_question=150
+    if paper_id==25:
+        no_of_question=200
+
     paper=Paper.query.filter_by(paper_id=paper_id).first()
-    return render_template("inputanswer.html",paper=paper)
+    return render_template("inputanswer.html",paper=paper,no_of_question=no_of_question)
 
 @app.route("/rank-<int:paper_id>",methods=['GET','POST'])
 def rank(paper_id):
@@ -77,11 +81,14 @@ def calculate(paper_id):
     series=request.form.get("series")
     answer_email="admin"
     paper=Paper.query.filter_by(paper_id=paper_id).first()
+    total_question=150
+    if paper_id==25:
+        total_question=200
     #answer=Answer.query().filter(and_(Answer.paper_id == paper_id,Answer.user_email=="admin",Answer.series==series)).first()
 
     answer=db1.execute("select * from answer_key WHERE paper_id=:paper_id AND  user_email=:answer_email AND series=:series",
     {"paper_id":paper_id,"answer_email":answer_email,"series":series}).fetchone()
-    for qno in range(1,151):
+    for qno in range(1,total_question+1):
         qstr='q'+str(qno)
         rightans1='T'
         if len(answer[qno+2])==1:
